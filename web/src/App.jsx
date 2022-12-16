@@ -12,6 +12,7 @@ function App() {
   const [socketState, setSocketState] = useState(false)
 
   const [mensageValue, setMensageValue] = useState('')
+
   const [chatMensages, setChatMensages] = useState([])
 
   const [username, setUsername] = useState({
@@ -24,13 +25,13 @@ function App() {
 
 
   return (
-    <Socket username={username}>
+    <Socket username={username} setChatMensages={setChatMensages}>
 
       <Container>
 
 
         {socketState ?
-          <Chat />
+          <Chat chatMensages={chatMensages} />
           :
           <Register setSocketState={setSocketState} setUsername={setUsername} />
 

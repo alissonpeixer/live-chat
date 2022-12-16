@@ -23,9 +23,18 @@ export const socketIo = () => {
                 id: idSecssion
             })
 
+            mensageDataBase.push({
+                username,
+                msg: 'Acabou de entrar no chat!'
+            })
+
+
             console.log(`+ ${socket.id} as connected`);
 
-            io.emit('start state', usersConnected)
+            io.emit('start state', {
+                mensageDataBase,
+                usersConnected
+            })
 
         })
 
@@ -40,12 +49,24 @@ export const socketIo = () => {
             --usersAcountId
 
             usersConnected.map(user => {
+                console.log(user)
                 if (user.socketId === socket.id) {
                     usersConnected.splice(user)
 
-                    io.emit('user leave', {
-                        msg: `${user.socketId} Acabou de sair.`
+
+                    mensageDataBase.push({
+                        msg: `Acabou de sair.`,
+                        username: {
+                            usernameValue: user.username.usernameValue
+                        }
                     })
+
+
+                    io.emit('start state', {
+                        mensageDataBase,
+                        usersConnected
+                    })
+
                     return
                 }
             })
