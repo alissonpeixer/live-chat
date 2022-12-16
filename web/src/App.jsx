@@ -11,7 +11,9 @@ import { Register } from './pages/Register'
 function App() {
   const [socketState, setSocketState] = useState(false)
 
-  const [mensageValue, setMensageValue] = useState('')
+  const [mensageValue, setMensageValue] = useState({
+    valid: false
+  })
 
   const [chatMensages, setChatMensages] = useState([])
 
@@ -25,13 +27,13 @@ function App() {
 
 
   return (
-    <Socket username={username} setChatMensages={setChatMensages}>
+    <Socket username={username} setChatMensages={setChatMensages} mensageValue={mensageValue}>
 
       <Container>
 
 
         {socketState ?
-          <Chat chatMensages={chatMensages} />
+          <Chat chatMensages={chatMensages} setMensageValue={setMensageValue} />
           :
           <Register setSocketState={setSocketState} setUsername={setUsername} />
 

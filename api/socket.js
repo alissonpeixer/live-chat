@@ -15,7 +15,7 @@ export const socketIo = () => {
 
         socket.on('join user', username => {
             idSecssion = ++usersAcountId
-
+            socket.username = username
 
             usersConnected.push({
                 username,
@@ -79,14 +79,22 @@ export const socketIo = () => {
 
         socket.on('send menssage', msg => {
 
+            console.log(msg)
             mensageDataBase.push({
                 msg: msg,
                 socketId: socket.id,
-                id: idSecssion
+                id: idSecssion,
+                username: {
+                    usernameValue: socket.username.usernameValue
+                }
+
             })
 
 
-            io.emit('receb menssage', mensageDataBase)
+            io.emit('start state', {
+                mensageDataBase,
+                usersConnected
+            })
         })
 
 

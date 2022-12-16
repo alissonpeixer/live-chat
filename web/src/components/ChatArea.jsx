@@ -1,12 +1,14 @@
 
 export const ChatArea = ({ chatMensages }) => {
-    console.log(chatMensages)
+
     return (
         <div id="chat-area">
             {chatMensages.map((data, id) => (
-                console.log(data),
-                <div key={id}>
-                    <span>{data.username.usernameValue}</span>
+
+                <div key={id} id='menssage'>
+                    <span>
+                        <strong>{data.username.usernameValue}</strong>
+                    </span>
                     <span>   {data.msg}</span>
                 </div>
             ))}
