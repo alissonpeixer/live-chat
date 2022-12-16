@@ -14,7 +14,9 @@ function App() {
   const [mensageValue, setMensageValue] = useState('')
   const [chatMensages, setChatMensages] = useState([])
 
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState({
+    valid: false
+  })
 
 
 

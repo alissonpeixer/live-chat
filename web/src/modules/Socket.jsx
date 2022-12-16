@@ -5,9 +5,11 @@ import socket from '../socket'
 export const Socket = ({ children, username }) => {
 
 
-
+    console.log(username)
     useEffect(() => {
-        socket.emit('join user', username)
+        if (username.valid) {
+            socket.emit('join user', username)
+        }
 
         socket.on('start state', data => {
             console.log(data)
@@ -18,7 +20,7 @@ export const Socket = ({ children, username }) => {
             socket.off('join user')
             socket.off('start state')
         }
-    }, [socket])
+    }, [username, socket])
 
 
     return (

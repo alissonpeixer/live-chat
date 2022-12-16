@@ -14,7 +14,10 @@ export const Register = ({ setSocketState, setUsername }) => {
 
         setSocketState(true);
 
-        setUsername(usernameValue);
+        setUsername({
+            usernameValue,
+            valid: true
+        });
     }
 
     return (
