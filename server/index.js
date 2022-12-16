@@ -7,25 +7,25 @@ import cors from 'cors'
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-import { socketIo } from '../socket.js'
 
 const app = express();
 const server = http.createServer(app);
 
-app.use(cors())
 
 const mensageDataBase = []
 const usersConnected = []
 let usersAcountId = 0
 
+app.use(cors({
+    origin: process.env.WEB_URL
+}));
 
 
 
 export const io = new Server(server, {
     cors: {
-        origin: [`${process.env.WEB_URL}`],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
+        origin: process.env.WEB_URL,
+        methods: ["GET", "POST"]
     }
 });
 
