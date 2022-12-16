@@ -1,0 +1,74 @@
+:root{
+  --esmerald: #50C878
+
+}
+
+
+
+
+#container{
+  height: 90vh;
+  min-width: 80vw;
+  max-width: 1900px;
+}
+
+
+#chat-area{
+  height: 80%;
+  border: 1px solid var(--esmerald) ;
+  border-radius: 10px;
+  margin-top: 4px;
+}
+
+
+#input{
+  color: white;
+  transition: 1s all;
+  font-size: 1rem;
+  background: transparent;
+  padding: 10px;
+  width: 100%;
+  height: 40px;
+
+
+  border: none;
+  border-radius: 10px;
+
+  outline: 1px solid rgba(167, 167, 167, 0.438);
+}
+#input:focus{
+  transition: 1s all;
+  outline: 1px solid var(--esmerald);
+}
+
+
+#button{
+  transition: 1s all;
+  color: rgba(207, 207, 207, 0.438);
+  width: 100%;
+  font-size: 0.8rem;
+  outline: none;
+  background: transparent;
+  border: none;
+  padding: 10px;
+  outline: 1px solid rgba(167, 167, 167, 0.438);
+
+  border-radius: 10px;
+}
+
+#button:hover{
+  transition: 1s all;
+  color: white;
+  cursor: pointer;
+
+  outline: 1px solid var(--esmerald);
+  border-radius: 10px;
+}
+
+.custom-main-01{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
