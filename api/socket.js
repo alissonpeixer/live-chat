@@ -77,7 +77,7 @@ export const socketIo = () => {
         });
 
 
-        socket.on('send mensage', msg => {
+        socket.on('send menssage', msg => {
 
             mensageDataBase.push({
                 msg: msg,
@@ -86,7 +86,7 @@ export const socketIo = () => {
             })
 
 
-            io.emit('receb mensage', mensageDataBase)
+            io.emit('receb menssage', mensageDataBase)
         })
 
 
