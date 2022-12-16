@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import './App.css'
 
@@ -22,18 +22,19 @@ function App() {
   })
 
 
+  const myRef = useRef(null);
 
 
-
+  console.log(myRef)
 
   return (
-    <Socket username={username} setChatMensages={setChatMensages} mensageValue={mensageValue}>
+    <Socket username={username} setChatMensages={setChatMensages} mensageValue={mensageValue} myRef={myRef} setSocketState={setSocketState}>
 
       <Container>
 
 
         {socketState ?
-          <Chat chatMensages={chatMensages} setMensageValue={setMensageValue} />
+          <Chat chatMensages={chatMensages} setMensageValue={setMensageValue} myRef={myRef} />
           :
           <Register setSocketState={setSocketState} setUsername={setUsername} />
 

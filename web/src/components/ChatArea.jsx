@@ -1,5 +1,6 @@
 
-export const ChatArea = ({ chatMensages }) => {
+export const ChatArea = ({ chatMensages, myRef }) => {
+
 
     return (
         <div id="chat-area">
@@ -13,7 +14,7 @@ export const ChatArea = ({ chatMensages }) => {
                 </div>
             ))}
 
-            <div></div>
+            <div id="chat-end" ref={myRef}></div>
         </div>
     )
 }

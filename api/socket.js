@@ -1,4 +1,4 @@
-import { io } from './server.js'
+import { io } from './index.js'
 
 
 const mensageDataBase = []
@@ -95,6 +95,8 @@ export const socketIo = () => {
                 mensageDataBase,
                 usersConnected
             })
+
+            socket.broadcast.emit('receb menssage', 'salve')
         })
 
 

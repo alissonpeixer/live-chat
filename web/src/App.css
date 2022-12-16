@@ -80,6 +80,9 @@
   border-radius: 10px;
 }
 
+#chat-end{
+  padding: 50px;
+}
 .custom-main-01{
   display: flex;
   flex-direction: column;
