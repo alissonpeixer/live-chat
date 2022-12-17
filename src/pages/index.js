@@ -23,6 +23,13 @@ const App = () => {
       console.log("SOCKET CONNECTED!", socket.id);
     });
 
+    // update chat on new message dispatched
+    socket.on("message", (message) => {
+      alert('MENSAGEM!')
+    });
+
+    // socket disconnet onUnmount if exists
+    if (socket) return () => socket.disconnect();
   }, [])
 
   return (
