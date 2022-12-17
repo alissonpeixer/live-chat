@@ -1,60 +1,41 @@
-import Head from 'next/head'
-import SocketIOClient from "socket.io-client";
 import { useEffect, useState } from 'react'
+import io from 'Socket.IO-client'
+let socket;
 
-
-import Chat from '../components/Chat'
-import Username from '../components/Username'
-let socket
-
-
-
-const App = () => {
-
-  const [username, setUsername] = useState('')
+const Home = () => {
+  const [input, setInput] = useState('')
 
   useEffect(() => {
-    socket = SocketIOClient.connect(process.env.BASE_URL, {
-      path: "/api/socketio",
-    });
-
-
-    socket.on("connect", () => {
-      console.log("SOCKET CONNECTED!", socket.id);
-    });
-
-    // update chat on new message dispatched
-    socket.on("message", (message) => {
-      alert('MENSAGEM!')
-    });
-
-    // socket disconnet onUnmount if exists
-    if (socket) return () => socket.disconnect();
+    socketInitializer()
   }, [])
 
+  const socketInitializer = async () => {
+    await fetch('/api/socket');
+    socket = io()
+
+    console.log('salve')
+
+    socket.on('connect', () => {
+      console.log('connected')
+    })
+
+    socket.on('update-input', msg => {
+      setInput(msg)
+    })
+  }
+
+  const onChangeHandler = (e) => {
+    setInput(e.target.value)
+    socket.emit('input-change', e.target.value)
+  }
+
   return (
-    <>
-      <Head>
-        <title>Live Chat</title>
-        <meta name="description" content="Simple live chat using to NextJs" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-
-
-      {!username ?
-
-        <Username setUsername={setUsername} />
-        :
-        <Chat username={username} socket={socket} />
-      }
-
-
-
-
-    </>
+    <input
+      placeholder="Type something"
+      value={input}
+      onChange={onChangeHandler}
+    />
   )
 }
 
-export default App
+export default Home;

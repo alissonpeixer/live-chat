@@ -6,10 +6,8 @@ import { MenssageFriend } from "./MenssageFriend"
 import { MenssageUser } from "./MenssageUser"
 
 
-
-
-
 const Chat = ({ username, socket }) => {
+
   const [sendState, setSendState] = useState(false)
 
   const audioSend = new Audio('/send.mp3')
@@ -19,6 +17,8 @@ const Chat = ({ username, socket }) => {
   const [value, setValue] = useState('')
 
   const myRef = useRef(null)
+
+
 
   useEffect(() => {
 
