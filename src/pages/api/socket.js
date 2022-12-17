@@ -1,24 +1,27 @@
-import { App } from "uWebSockets.js";
 import { Server } from "socket.io";
+import sockets from "../../utils/sockets";
 
-export default (req, res) => {
-  const app = new App();
+export default function socket(req, res) {
+
+
+  if (res.socket.server.io) {
+    console.log("+ ONLINE");
+    res.end();
+    return;
+  }
+
   const io = new Server(res.socket.server);
 
-
-  res.socket.server.io = io
-  io.attachApp(app);
-
-  io.on("connection", (socket) => {
-    console.log('+ CONNECTING')
-    socket.on('input-change', (msg) => {
-      io.emit('update-input', msg)
-    })
-  });
+  res.socket.server.io = io;
 
 
+  const socketOnline = (socket) => {
+    sockets(io, socket)
+  }
 
-  res.end()
+  io.on("connection", socketOnline);
 
-  res.status(201).json('salve');
+
+  res.end();
+
 }

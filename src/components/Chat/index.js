@@ -5,8 +5,10 @@ import { useEffect, useRef, useState } from "react"
 import { MenssageFriend } from "./MenssageFriend"
 import { MenssageUser } from "./MenssageUser"
 
+import socket from "../../../socket"
 
-const Chat = ({ username, socket }) => {
+
+const Chat = ({ username }) => {
 
   const [sendState, setSendState] = useState(false)
 
@@ -54,22 +56,11 @@ const Chat = ({ username, socket }) => {
 
   const sendMenssage = async (e) => {
     if (!value) return
-    const resp = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        menssage: value,
-        author: username,
-        socketId: socket.id
-      }),
-    });
 
-
-    if (resp.ok) alert("success");
     setSendState(false)
+
     await audioSend.play()
+
     setMensages(prevOld => [...prevOld, {
       you: true,
       menssage: value,
@@ -77,7 +68,7 @@ const Chat = ({ username, socket }) => {
       socketId: socket.id
     }])
 
-    await socket.emit('sendMensage', {
+    socket.emit('sendMensage', {
       menssage: value,
       author: username,
       socketId: socket.id

@@ -1,29 +1,42 @@
+import Head from 'next/head'
+
 import { useEffect, useState } from 'react'
-import { io } from 'socket.io-client'
-let socket
 
-const Home = () => {
-  const [input, setInput] = useState('')
 
-  useEffect(() => {
-    socketInitializer()
-  }, [])
+import Chat from '../components/Chat'
+import Username from '../components/Username'
 
-  const socketInitializer = async () => {
-    await fetch('/api/socket')
-    socket = io()
 
-    socket.on('connect', () => {
-      console.log('connected')
-    })
-  }
 
+
+const App = () => {
+
+  const [username, setUsername] = useState('')
 
 
   return (
-    <h1>SAVE</h1>
+    <>
+      <Head>
+        <title>Live Chat</title>
+        <meta name="description" content="Simple live chat using to NextJs" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+
+
+      {!username ?
+
+        <Username setUsername={setUsername} />
+        :
+        <Chat username={username} />
+      }
+
+
+
+
+    </>
   )
 }
 
-
-export default Home;
+export default App
