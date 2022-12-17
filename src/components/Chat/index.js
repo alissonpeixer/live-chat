@@ -18,6 +18,9 @@ const Chat = ({ username }) => {
 
   const myRef = useRef(null)
 
+  async function connect() {
+    await fetch('/api/socket')
+  }
   useEffect(() => {
     socket.on('sendStatusCheck', (data) => {
       setSendState(true)
@@ -42,6 +45,7 @@ const Chat = ({ username }) => {
 
   const sendMenssage = async (e) => {
     if (!value) return
+    connect()
     setSendState(false)
     await audioSend.play()
     await setMensages(prevOld => [...prevOld, {

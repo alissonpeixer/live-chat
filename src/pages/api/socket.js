@@ -12,7 +12,7 @@ export default function socket(req, res) {
 
   const io = new Server(res.socket.server, {
     cors: {
-      origin: process.env.CROS_ORIGIN,
+      origin: 'https://az-chat.vercel.app',
     }
   });
   res.socket.server.io = io;
