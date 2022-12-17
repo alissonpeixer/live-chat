@@ -21,11 +21,11 @@ export default async (req, res) => {
     res.socket.server.io = io;
 
 
-    const socketOnline = (socket) => {
-      sockets(io, socket)
-    }
+    // const socketOnline = (socket) => {
+    //   sockets(io, socket)
+    // }
 
-    io.on("connection", socketOnline);
+    // io.on("connection", socketOnline);
 
   }
 
