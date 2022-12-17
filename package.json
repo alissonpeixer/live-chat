@@ -17,7 +17,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "socket.io": "^4.5.4",
-    "socket.io-client": "^4.5.4"
+    "socket.io-client": "^4.5.4",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.15.0",
+    "uwsjs": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
