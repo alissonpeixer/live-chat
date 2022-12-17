@@ -5,7 +5,9 @@ import { useEffect, useRef, useState } from "react"
 import { MenssageFriend } from "./MenssageFriend"
 import { MenssageUser } from "./MenssageUser"
 
-import socket from '../../../socket'
+let socket
+
+import SocketIOClient from "socket.io-client";
 
 const Chat = ({ username }) => {
   const [sendState, setSendState] = useState(false)
@@ -18,9 +20,19 @@ const Chat = ({ username }) => {
 
   const myRef = useRef(null)
 
-  async function connect() {
-    await fetch('/api/socket')
-  }
+
+  useEffect(() => {
+    socket = SocketIOClient.connect(process.env.BASE_URL, {
+      path: "/api/socketio",
+    });
+
+
+    socket.on("connect", () => {
+      console.log("SOCKET CONNECTED!", socket.id);
+    });
+
+  }, [])
+
   useEffect(() => {
     socket.on('sendStatusCheck', (data) => {
       setSendState(true)
@@ -45,10 +57,10 @@ const Chat = ({ username }) => {
 
   const sendMenssage = async (e) => {
     if (!value) return
-    connect()
+
     setSendState(false)
     await audioSend.play()
-    await setMensages(prevOld => [...prevOld, {
+    setMensages(prevOld => [...prevOld, {
       you: true,
       menssage: value,
       author: username,

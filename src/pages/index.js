@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import socket from '../../socket'
+
 import { useEffect, useState } from 'react'
 
 
