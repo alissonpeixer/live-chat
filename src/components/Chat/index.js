@@ -46,18 +46,30 @@ const Chat = ({ username }) => {
       audioNoty.play()
       myRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
     })
+    // update chat on new message dispatched
+    socket.on("message", (message) => {
+      console.log(message)
+
+    });
+
 
     return () => {
       socket.off('recebMensage')
       socket.off('sendStatusCheck')
-
+      socket.off('message')
     }
   }, [socket])
 
 
   const sendMenssage = async (e) => {
     if (!value) return
-
+    const resp = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(message),
+    });
     setSendState(false)
     await audioSend.play()
     setMensages(prevOld => [...prevOld, {
