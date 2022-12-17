@@ -5,11 +5,11 @@ import { useEffect, useRef, useState } from "react"
 import { MenssageFriend } from "./MenssageFriend"
 import { MenssageUser } from "./MenssageUser"
 
-let socket
 
-import SocketIOClient from "socket.io-client";
 
-const Chat = ({ username }) => {
+
+
+const Chat = ({ username, socket }) => {
   const [sendState, setSendState] = useState(false)
 
   const audioSend = new Audio('/send.mp3')
@@ -20,24 +20,14 @@ const Chat = ({ username }) => {
 
   const myRef = useRef(null)
 
-
   useEffect(() => {
-    socket = SocketIOClient.connect(process.env.BASE_URL, {
-      path: "/api/socketio",
-    });
 
-
-    socket.on("connect", () => {
-      console.log("SOCKET CONNECTED!", socket.id);
-    });
-
-  }, [])
-
-  useEffect(() => {
     socket.on('sendStatusCheck', (data) => {
       setSendState(true)
     })
+
     socket.on('recebMensage', (data) => {
+
 
       setMensages(prevOld => [...prevOld, {
         you: true,
@@ -46,6 +36,7 @@ const Chat = ({ username }) => {
       audioNoty.play()
       myRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
     })
+
     // update chat on new message dispatched
     socket.on("message", (message) => {
       console.log(message)
@@ -74,6 +65,9 @@ const Chat = ({ username }) => {
         socketId: socket.id
       }),
     });
+
+
+    if (resp.ok) alert("success");
     setSendState(false)
     await audioSend.play()
     setMensages(prevOld => [...prevOld, {

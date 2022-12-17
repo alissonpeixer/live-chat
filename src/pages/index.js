@@ -1,18 +1,29 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
-
+import SocketIOClient from "socket.io-client";
 import { useEffect, useState } from 'react'
 
 
 import Chat from '../components/Chat'
 import Username from '../components/Username'
+let socket
+
+
 
 const App = () => {
 
   const [username, setUsername] = useState('')
 
+  useEffect(() => {
+    socket = SocketIOClient.connect(process.env.BASE_URL, {
+      path: "/api/socketio",
+    });
 
 
+    socket.on("connect", () => {
+      console.log("SOCKET CONNECTED!", socket.id);
+    });
+
+  }, [])
 
   return (
     <>
@@ -29,7 +40,7 @@ const App = () => {
 
         <Username setUsername={setUsername} />
         :
-        <Chat username={username} />
+        <Chat username={username} socket={socket} />
       }
 
 
