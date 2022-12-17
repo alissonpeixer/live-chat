@@ -68,7 +68,7 @@ const Chat = ({ username }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(message),
+      body: JSON.stringify(value),
     });
     setSendState(false)
     await audioSend.play()
