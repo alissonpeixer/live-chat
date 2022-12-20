@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 
 
 import Chat from '../components/Chat'
-import Username from '../components/Username'
-
+import Username from '../components/GetUsername'
+import { Container } from '../components/Container'
 
 
 
@@ -25,14 +25,16 @@ const App = () => {
 
 
 
-      {!username ?
+      <Container>
 
-        <Username setUsername={setUsername} />
-        :
-        <Chat username={username} />
-      }
+        {username ?
+          <Chat username={username} />
+          :
+          <Username setUsername={setUsername} />
+        }
 
 
+      </Container>
 
 
     </>

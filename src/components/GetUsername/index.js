@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Container } from "../Containers/Container"
+import { Container } from "../Container"
 
 const Username = ({ setUsername }) => {
 

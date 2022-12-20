@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-.scroll {
-  overflow-y: hidden;
+body {
+  overflow: hidden;
 }
