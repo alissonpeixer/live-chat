@@ -20,10 +20,12 @@ const Chat = ({ username }) => {
   const [menssages, setMensages] = useState([])
   const [value, setValue] = useState('')
 
+  const data = new Date().toLocaleString()
+
   const myRef = useRef(null)
 
 
-
+  console.log(data.split(' ')[1])
   useEffect(() => {
 
     socket.on('sendStatusCheck', (data) => {
@@ -79,9 +81,9 @@ const Chat = ({ username }) => {
 
   }
   return (
-    <>
+    <main className='h-full w-3/4'>
 
-      <div className='overflow-y-auto h-[80%] gap-3 flex flex-col bg-white bg-opacity-20 backdrop-blur-lg rounded-3xl py-5'>
+      <div className='bg-cover  bg-white bg-opacity-10 backdrop-blur-xl overflow-y-auto h-[80%] gap-3 flex flex-col  rounded-3xl p-5 scrollbar scrollbar-thumb-emerald-400  scrollbar-track-gray-100 scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
         {
           menssages?.map((data, index) => (
             !data.you ?
@@ -97,15 +99,15 @@ const Chat = ({ username }) => {
       </div>
 
 
-      <div className='transition-all h-[20%] flex-1   bg-white/[0.3] flex flex-col lg:justify-center rounded-3xl'>
+      <div className='transition-all h-[20%] flex-1 flex flex-col lg:justify-center rounded-3xl '>
 
         <div className='flex items-center justify-end'>
 
           <div className='absolute  pr-10 '>
             <button
               onClick={() => sendMenssage()}
-              className='transition-all rounded-full z-10 items-center justify-center flex  bg-slate-400 p-2 hover:bg-zinc-700 '>
-              <ArrowRightIcon className='w-6 h-6  transition-all 0 shadow-2xl   hover:stroke-slate-400' />
+              className='transition-all rounded-full z-10 items-center justify-center flex  bg-emerald-400/[0.4] p-2 hover:bg-emerald-400 '>
+              <ArrowRightIcon className='w-6 h-6  transition-all 0 shadow-2xl' />
             </button>
           </div>
 
@@ -116,11 +118,11 @@ const Chat = ({ username }) => {
             onKeyDown={e => e.code === 'Enter' && sendMenssage()}
             value={value}
             type="text"
-            className='bg-zinc-100 border overflow-hidden  border-zinc-300  shadow-xl  max-h-28 m-6 w-11/12 py-5 pl-6 pr-14 rounded-3xl focus:outline-none' />
+            className='border overflow-hidden  shadow-xl w-full  max-h-28 m-6  py-5 pl-6 pr-14 rounded-3xl focus:outline-none' />
         </div>
       </div>
 
-    </>
+    </main>
   )
 }
 

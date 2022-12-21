@@ -7,12 +7,13 @@ import Chat from '../components/Chat'
 import Username from '../components/GetUsername'
 import { Container } from '../components/Container'
 
+import { ListUsers } from '../components/ListUsers'
 
 
 const App = () => {
 
   const [username, setUsername] = useState('')
-
+  const [users, setUsers] = useState([])
 
   return (
     <>
@@ -28,7 +29,11 @@ const App = () => {
       <Container>
 
         {username ?
-          <Chat username={username} />
+          <>
+            <ListUsers users={users} />
+            <Chat username={username} />
+          </>
+
           :
           <Username setUsername={setUsername} />
         }

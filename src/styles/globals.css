@@ -4,4 +4,8 @@
 
 body {
   overflow: hidden;
+  background-color: theme('colors.neutral.800');
+
+  background-image: theme('backgroundImage.grid');
+  background-size: cover;
 }

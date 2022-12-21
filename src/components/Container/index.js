@@ -1,7 +1,16 @@
 export const Container = ({ children }) => {
   return (
-    <section className="mx-auto  bg-zinc-700 h-screen w-screen flex flex-col
-    justify-between" >
+    <section
+      className="
+      mx-auto
+      container
+      h-screen
+      w-screen
+      flex
+      gap-3
+      justify-between
+      py-4
+    " >
       {children}
     </section>
   )
