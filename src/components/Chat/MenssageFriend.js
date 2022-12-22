@@ -17,7 +17,7 @@ export const MenssageFriend = ({ data }) => {
       </p>
 
       <div className='h-12 flex items-center text-xs'>
-        Hoje, 24:55
+
       </div>
     </div>
   )

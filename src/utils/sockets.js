@@ -27,7 +27,8 @@ export default (io, socket) => {
 
     socket.broadcast.emit('recebMensage', {
       ...data,
-      you: false
+      you: false,
+      typing: false
     })
   })
 
@@ -57,6 +58,17 @@ export default (io, socket) => {
 
     socket.broadcast.emit('notifyUserLeft', user)
 
+  })
+
+
+
+  socket.on('typing', () => {
+    socket.broadcast.emit('isTyping', socket.id)
+  })
+
+
+  socket.on('stopTyping', () => {
+    socket.broadcast.emit('noTyping', socket.id)
   })
 
 

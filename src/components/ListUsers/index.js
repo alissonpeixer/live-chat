@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 
 import { ListFriend } from "./ListFriend"
@@ -7,7 +7,7 @@ import { ListUser } from "./ListYou"
 
 export const ListUsers = ({ socket, users, setUsers }) => {
 
-
+  const [typing, setTyping] = useState({})
 
   useEffect(() => {
 
@@ -39,10 +39,49 @@ export const ListUsers = ({ socket, users, setUsers }) => {
 
     })
 
+    socket.on('isTyping', (typi) => {
+      setUsers(items => items.map(item => {
+
+        if (item.socketId === typi) {
+          return {
+            ...item,
+            isTyping: true
+          }
+        }
+
+        return {
+          ...item
+        }
+
+      }))
+    })
+
+    socket.on('noTyping', (typi) => {
+      console.log(typi)
+      setUsers(items => items.map(item => {
+
+        if (item.socketId === typi) {
+          return {
+            ...item,
+            isTyping: false
+          }
+        }
+
+        return {
+          ...item
+        }
+
+      }))
+    })
+
+
+
     return () => {
+      socket.off('noTyping')
       socket.off('notifyUserLeft')
       socket.off('notifyUserJoined')
       socket.off('userLogin')
+      socket.off('isTyping')
     }
   }, [socket])
 
@@ -50,19 +89,24 @@ export const ListUsers = ({ socket, users, setUsers }) => {
 
   console.log(users)
   return (
-    <main className="flex-1 bg-white bg-opacity-10 backdrop-blur-xl rounded-2xl h-full hidden xl:block p-5">
+    <main className="fixed z-40 p-3 shadow-2xl  container flex-1 bg-zinc-900 xl:bg-white xl:bg-opacity-10 xl:backdrop-blur-xl  h-16 flex items-center xl:rounded-2xl xl:h-full xl:block xl:p-5 xl:relative">
 
 
-      <div className="h-full flex flex-col gap-3 overflow-y-auto scrol scrollbar scrollbar-thumb-emerald-400  scrollbar-track-gray-100 scrollbar-thumb-rounded-md scrollbar-track-rounded-md">
+      <div className="truncate  transition-all xl:h-full flex xl:flex-col gap-3 overflow-y-auto scrol scrollbar scrollbar-thumb-emerald-400  scrollbar-track-gray-100 scrollbar-thumb-rounded-md scrollbar-track-rounded-md">
+
         {
 
           users.map((data, id) => (
             !data.you ?
-              <ListFriend key={id} data={data} /> :
+
+              <ListFriend key={id} data={data} />
+              :
               <ListUser key={id} data={data} />
+
           ))
 
         }
+
       </div>
 
 
