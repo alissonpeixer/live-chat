@@ -1,11 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Container } from "../Container"
 
 
 
-const Username = ({ setUsername }) => {
+const Username = ({ setUsername, sendUsers }) => {
 
   const [value, setValue] = useState('')
+
 
   return (
 
@@ -20,7 +21,8 @@ const Username = ({ setUsername }) => {
           e.key === 'Enter' &&
             (
               setUsername(value),
-              setValue('')
+              setValue(''),
+              sendUsers(value)
             )
 
         }}
@@ -33,7 +35,8 @@ const Username = ({ setUsername }) => {
         onClick={() =>
         (
           setUsername(value),
-          setValue('')
+          setValue(''),
+          sendUsers(value)
         )
 
         }

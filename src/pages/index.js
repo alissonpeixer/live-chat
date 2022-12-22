@@ -8,12 +8,34 @@ import Username from '../components/GetUsername'
 import { Container } from '../components/Container'
 
 import { ListUsers } from '../components/ListUsers'
-
+import socket from "../../socket"
 
 const App = () => {
 
   const [username, setUsername] = useState('')
   const [users, setUsers] = useState([])
+
+
+
+  const sendUsers = async (value) => {
+
+    socket.emit('userJoined', {
+      username: value,
+      socketId: socket.id
+    })
+
+
+    setUsers(prevState => [
+      ...prevState,
+      {
+        username: value,
+        socketId: socket.id,
+        you: true
+      }
+    ])
+  }
+
+
 
   return (
     <>
@@ -28,14 +50,15 @@ const App = () => {
 
       <Container>
 
+
         {username ?
           <>
-            <ListUsers users={users} />
-            <Chat username={username} />
+            <ListUsers users={users} socket={socket} setUsers={setUsers} />
+            <Chat username={username} socket={socket} setUsername={setUsername} />
           </>
 
           :
-          <Username setUsername={setUsername} />
+          <Username setUsername={setUsername} sendUsers={sendUsers} />
         }
 
 

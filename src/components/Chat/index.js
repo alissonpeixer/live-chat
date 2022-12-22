@@ -7,10 +7,10 @@ import { Container } from '../Container'
 import { MenssageFriend } from "./MenssageFriend"
 import { MenssageUser } from "./MenssageUser"
 
-import socket from "../../../socket"
 
 
-const Chat = ({ username }) => {
+
+const Chat = ({ username, socket, setUsername }) => {
 
   const [sendState, setSendState] = useState(false)
 
@@ -26,6 +26,9 @@ const Chat = ({ username }) => {
 
 
   console.log(data.split(' ')[1])
+
+
+
   useEffect(() => {
 
     socket.on('sendStatusCheck', (data) => {
@@ -42,10 +45,6 @@ const Chat = ({ username }) => {
       audioNoty.play()
       myRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
     })
-
-
-
-
 
     return () => {
       socket.off('recebMensage')
@@ -81,9 +80,9 @@ const Chat = ({ username }) => {
 
   }
   return (
-    <main className='h-full w-3/4'>
+    <main className='transition-all h-full xl:w-3/4 w-full bg-cover  bg-white bg-opacity-10 backdrop-blur-xl rounded-lg'>
 
-      <div className='bg-cover  bg-white bg-opacity-10 backdrop-blur-xl overflow-y-auto h-[80%] gap-3 flex flex-col  rounded-3xl p-5 scrollbar scrollbar-thumb-emerald-400  scrollbar-track-gray-100 scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
+      <div className='overflow-y-auto h-[80%] gap-3 flex flex-col  rounded-3xl p-5 scrollbar scrollbar-thumb-emerald-400  scrollbar-track-gray-100 scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
         {
           menssages?.map((data, index) => (
             !data.you ?
@@ -99,7 +98,7 @@ const Chat = ({ username }) => {
       </div>
 
 
-      <div className='transition-all h-[20%] flex-1 flex flex-col lg:justify-center rounded-3xl '>
+      <div className='transition-all h-[20%] flex-1 flex flex-col lg:justify-center rounded-3xl'>
 
         <div className='flex items-center justify-end'>
 

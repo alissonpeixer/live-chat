@@ -1,13 +1,14 @@
 import { Server } from "socket.io";
 import sockets from "../../utils/sockets";
 
+
+
 export default function socket(req, res) {
 
 
   if (res.socket.server.io) {
     console.log("+ ONLINE");
-    res.end();
-    return;
+    return
   }
 
   const io = new Server(res.socket.server);
@@ -22,6 +23,7 @@ export default function socket(req, res) {
   io.on("connection", socketOnline);
 
 
+  res.status(200).json('FOI')
   res.end();
 
 }
