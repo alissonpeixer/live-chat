@@ -9,3 +9,7 @@ body {
   background-image: theme('backgroundImage.grid');
   background-size: cover;
 }
+
+.scrol::-webkit-scrollbar {
+  width: 3px;
+}

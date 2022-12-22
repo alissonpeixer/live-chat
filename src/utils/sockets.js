@@ -2,21 +2,20 @@
 
 const users = []
 
+const userDisconect = []
 
 const removeUser = (socket) => {
   console.log(`- ${socket.id} LEFT`)
-  let removeUser
-  users.map((user, id) => {
-    if (user.socketId === socket.id) {
+
+  users.map((item, id) => {
+    if (item.socketId === socket.id) {
       users.splice(id)
-      removeUser = user
     }
-
-
   })
 
-
-  return removeUser
+  return {
+    socketId: socket.id
+  }
 }
 
 export default (io, socket) => {
@@ -50,10 +49,12 @@ export default (io, socket) => {
     })
   })
 
-  socket.on('disconnect', async data => {
+  socket.on('disconnect', () => {
 
-    const user = await removeUser(socket)
+    const user = removeUser(socket)
+
     console.log(user)
+
     socket.broadcast.emit('notifyUserLeft', user)
 
   })
