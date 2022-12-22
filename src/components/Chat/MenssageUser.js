@@ -12,13 +12,13 @@ export const MenssageUser = ({ data, sendState }) => {
 
 
         </div>
-        <p className="bg-neutral-200 p-4 rounded-xl shadow-2xl">
+        <p className="bg-neutral-200 p-4 rounded-xl shadow-2xl break-words max-w-full">
           {data.menssage}
 
         </p>
 
         <div className='h-12 flex items-center text-xs gap-3'>
-          Hoje, 24:55
+
           <CheckIcon className={sendState ? "w-4 stroke-emerald-600" : "w-4 "} />
         </div>
       </div>

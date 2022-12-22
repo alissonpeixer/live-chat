@@ -9,7 +9,9 @@ export const Container = ({ children }) => {
       flex
       gap-3
       justify-between
-      py-4
+      flex-col
+    xl:flex-row
+      xl:py-4
     " >
       {children}
     </section>
