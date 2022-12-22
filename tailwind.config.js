@@ -6,6 +6,11 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    backgroundImage: {
+      'grid': "url('/grid.svg')"
+    }
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
 }
