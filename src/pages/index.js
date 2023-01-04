@@ -1,41 +1,31 @@
-import Head from 'next/head'
+import Head from "next/head";
+import { useState } from "react";
+import Chat from "../components/Chat";
+import Username from "../components/GetUsername";
+import { Container } from "../components/Container";
 
-import { useEffect, useState } from 'react'
-
-
-import Chat from '../components/Chat'
-import Username from '../components/GetUsername'
-import { Container } from '../components/Container'
-
-import { ListUsers } from '../components/ListUsers'
-import socket from "../../socket"
+import { ListUsers } from "../components/ListUsers";
+import socket from "../../socket";
 
 const App = () => {
-
-  const [username, setUsername] = useState('')
-  const [users, setUsers] = useState([])
-
-
+  const [username, setUsername] = useState("");
+  const [users, setUsers] = useState([]);
 
   const sendUsers = async (value) => {
-
-    socket.emit('userJoined', {
+    socket.emit("userJoined", {
       username: value,
-      socketId: socket.id
-    })
+      socketId: socket.id,
+    });
 
-
-    setUsers(prevState => [
+    setUsers((prevState) => [
       ...prevState,
       {
         username: value,
         socketId: socket.id,
-        you: true
-      }
-    ])
-  }
-
-
+        you: true,
+      },
+    ]);
+  };
 
   return (
     <>
@@ -46,27 +36,22 @@ const App = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
-
       <Container>
-
-
-        {username ?
+        {username ? (
           <>
             <ListUsers users={users} socket={socket} setUsers={setUsers} />
-            <Chat username={username} socket={socket} setUsername={setUsername} />
+            <Chat
+              username={username}
+              socket={socket}
+              setUsername={setUsername}
+            />
           </>
-
-          :
+        ) : (
           <Username setUsername={setUsername} sendUsers={sendUsers} />
-        }
-
-
+        )}
       </Container>
-
-
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
