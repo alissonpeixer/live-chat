@@ -6,7 +6,7 @@
 
 Stacks used<br>
 
-![My Skills](https://skillicons.dev/icons?i=nextjs,react,nodejs,tailwindcss,typescript,scss)
+![My Skills](https://skillicons.dev/icons?i=nextjs,react,nodejs,tailwindcss,typescript)
 
 ---
 
