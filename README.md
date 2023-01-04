@@ -1,5 +1,3 @@
-# My portfolio page
-
 ![MasterHead](https://media.discordapp.net/attachments/902734948270759937/1022928123932713110/Frame_1.png)
 
 ---
@@ -11,8 +9,8 @@ Stacks used<br>
 ---
 
 ## This project
+### Live chat page
 
-> Live chat system
 
 <a href='https://live-chat-production-5094.up.railway.app/'>Live Demo</a>
 
