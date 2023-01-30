@@ -35,9 +35,6 @@ Stacks used<br>
 
 </br>
 
-### After to run api and web server go to browser, paste to URL logal server:
-    http://127.0.0.1:5173/
-
 
 
 ## Good look! 😃
