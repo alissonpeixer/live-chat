@@ -16,6 +16,30 @@ Stacks used<br>
 
 ---
 
+# Clone my project in your PC
+
+1. Frist clone project in your pc:
+    ```bash
+    git clone https://github.com/alissonpeixer/live-chat
+    ```
+2.  Go to directory:
+    ```bash
+    cd ~/live-chat
+    ```
+3.  Run to app:
+    ```bash
+    cd npm install ; npm run dev
+    ```
+4.  Open to browser
+    http://0.0.0.0:3000/ ou http://127.0.0.1:3000/
+
+</br>
+
+### After to run api and web server go to browser, paste to URL logal server:
+    http://127.0.0.1:5173/
+
+
+
 ## Good look! 😃
 
 ###### screenshot this project
