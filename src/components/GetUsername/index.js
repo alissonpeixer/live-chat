@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "@heroicons/react/24/solid"
 const MIN = 2
 const MAX = 13
 
-const Username = ({ setUsername, sendUsers }) => {
+const Username = ({ onLogin: setUsername }) => {
   const [value, setValue] = useState("")
 
   const trimmed = value.trim()
@@ -15,7 +15,6 @@ const Username = ({ setUsername, sendUsers }) => {
   const handleSubmit = () => {
     if (!canSubmit) return
     setUsername(trimmed)
-    sendUsers(trimmed)
     setValue("")
   }
 

@@ -7,7 +7,7 @@ export const MenssageFriend = ({ data }) => {
   return (
     <div className="flex items-end gap-2 max-w-[80%] lg:max-w-[60%]">
 
-      <div className={`w-8 h-8 rounded-full ${avatarColor} flex items-center justify-center flex-shrink-0 shadow-md`}>
+      <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-md" style={{ backgroundColor: avatarColor }}>
         <span className="text-white font-bold text-xs">{initial}</span>
       </div>
 

@@ -1,57 +1,67 @@
-import Head from "next/head";
-import { useState } from "react";
-import Chat from "../components/Chat";
-import Username from "../components/GetUsername";
-import { Container } from "../components/Container";
-
-import { ListUsers } from "../components/ListUsers";
-import socket from "../../socket";
+import Head from "next/head"
+import { useState } from "react"
+import Chat from "../components/Chat"
+import Username from "../components/GetUsername"
+import SelectRoom from "../components/SelectRoom"
+import { Container } from "../components/Container"
+import { ListUsers } from "../components/ListUsers"
+import socket from "../../socket"
 
 const App = () => {
-  const [username, setUsername] = useState("");
-  const [users, setUsers] = useState([]);
+  const [username, setUsername] = useState("")
+  const [room, setRoom] = useState(null)
+  const [users, setUsers] = useState([])
+  const [activeChat, setActiveChat] = useState("room")
+  const [unreadDMs, setUnreadDMs] = useState({})
 
-  const sendUsers = async (value) => {
-    socket.emit("userJoined", {
-      username: value,
-      socketId: socket.id,
-    });
-
-    setUsers((prevState) => [
-      ...prevState,
-      {
-        username: value,
-        socketId: socket.id,
-        you: true,
-      },
-    ]);
-  };
+  const handleJoinRoom = (newRoom) => {
+    setRoom(newRoom)
+    setUsers([{ username, socketId: socket.id, you: true }])
+    setActiveChat("room")
+  }
 
   return (
     <>
       <Head>
         <title>Live Chat</title>
-        <meta name="description" content="Simple live chat using to NextJs" />
+        <meta name="description" content="Live chat com Next.js e Socket.IO" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Container>
-        {username ? (
+        {!username ? (
+          <Username onLogin={setUsername} />
+        ) : !room ? (
+          <SelectRoom socket={socket} username={username} onJoin={handleJoinRoom} />
+        ) : (
           <>
-            <ListUsers users={users} socket={socket} setUsers={setUsers} />
+            <ListUsers
+              socket={socket}
+              users={users}
+              setUsers={setUsers}
+              username={username}
+              room={room}
+              onJoinRoom={handleJoinRoom}
+              activeChat={activeChat}
+              setActiveChat={setActiveChat}
+              unreadDMs={unreadDMs}
+              setUnreadDMs={setUnreadDMs}
+            />
             <Chat
               username={username}
               socket={socket}
               users={users}
+              room={room}
+              activeChat={activeChat}
+              setActiveChat={setActiveChat}
+              setUnreadDMs={setUnreadDMs}
             />
           </>
-        ) : (
-          <Username setUsername={setUsername} sendUsers={sendUsers} />
         )}
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
