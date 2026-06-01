@@ -43,7 +43,6 @@ const App = () => {
             <Chat
               username={username}
               socket={socket}
-              setUsername={setUsername}
             />
           </>
         ) : (

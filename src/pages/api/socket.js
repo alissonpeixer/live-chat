@@ -2,9 +2,7 @@ import { Server } from "socket.io";
 import sockets from "../../utils/sockets";
 
 
-
 export default function socket(req, res) {
-
 
   if (res.socket.server.io) {
     console.log("+ ONLINE");

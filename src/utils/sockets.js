@@ -1,53 +1,38 @@
 const users = [];
 
 const removeUser = (socket) => {
-  console.log(`- ${socket.id} LEFT`);
-
-  users.map((item, id) => {
-    if (item.socketId === socket.id) {
-      users.splice(id);
-    }
-  });
-
-  return {
-    socketId: socket.id,
-  };
+  const idx = users.findIndex(item => item.socketId === socket.id);
+  if (idx !== -1) {
+    users.splice(idx, 1);
+  }
+  return { socketId: socket.id };
 };
 
 export default (io, socket) => {
   socket.on("sendMensage", (data) => {
     socket.emit("sendStatusCheck");
-
     socket.broadcast.emit("recebMensage", {
       ...data,
       you: false,
-      typing: false,
     });
   });
 
   socket.on("userJoined", (data) => {
     socket.emit("userLogin", users);
-
     users.push(data);
-
-    socket.broadcast.emit("notifyUserJoined", {
-      data,
-    });
+    socket.broadcast.emit("notifyUserJoined", { data });
   });
 
   socket.on("disconnect", () => {
     const user = removeUser(socket);
-
-    console.log(user);
-
     socket.broadcast.emit("notifyUserLeft", user);
   });
 
-  socket.on("typing", () => {
-    socket.broadcast.emit("isTyping", socket.id);
+  socket.on("typing", ({ username }) => {
+    socket.broadcast.emit("isTyping", { socketId: socket.id, username });
   });
 
-  socket.on("stopTyping", () => {
-    socket.broadcast.emit("noTyping", socket.id);
+  socket.on("stopTyping", ({ username }) => {
+    socket.broadcast.emit("noTyping", { socketId: socket.id, username });
   });
 };
