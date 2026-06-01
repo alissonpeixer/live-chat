@@ -1,20 +1,26 @@
-import { UserCircleIcon } from "@heroicons/react/24/outline"
+import { getAvatarColor } from "../../utils/avatarColor"
 
 export const MenssageFriend = ({ data }) => {
+  const avatarColor = getAvatarColor(data.author)
+  const initial = data.author?.[0]?.toUpperCase() || '?'
+
   return (
-    <div className='bg-white p-4 rounded-2xl lg:w-[50%] w-[90%] px-5 py-4 shadow-2xl'>
-      <div className='flex gap-2 py-2 w-full items-center'>
-        <UserCircleIcon className='w-8 h-8' />
-        <span className="font-semibold text-sm">{data.author}</span>
+    <div className="flex items-end gap-2 max-w-[80%] lg:max-w-[60%]">
+
+      <div className={`w-8 h-8 rounded-full ${avatarColor} flex items-center justify-center flex-shrink-0 shadow-md`}>
+        <span className="text-white font-bold text-xs">{initial}</span>
       </div>
-      <p className="bg-neutral-200 p-4 rounded-xl shadow-sm break-words">
-        {data.menssage}
-      </p>
-      {data.timestamp && (
-        <div className='flex justify-end pt-2'>
-          <span className="text-xs text-gray-400">{data.timestamp}</span>
+
+      <div className="flex flex-col gap-1">
+        <span className="text-slate-400 text-xs pl-1">{data.author}</span>
+        <div className="bg-slate-700/80 backdrop-blur-sm rounded-2xl rounded-bl-sm px-4 py-3 shadow-md">
+          <p className="text-white text-sm break-words leading-relaxed">{data.menssage}</p>
         </div>
-      )}
+        {data.timestamp && (
+          <span className="text-slate-600 text-xs pl-1">{data.timestamp}</span>
+        )}
+      </div>
+
     </div>
   )
 }

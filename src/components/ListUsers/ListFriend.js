@@ -1,18 +1,26 @@
-import { UsersIcon } from "@heroicons/react/24/outline"
+import { getAvatarColor } from "../../utils/avatarColor"
 
 export const ListFriend = ({ data }) => {
+  const avatarColor = getAvatarColor(data.username)
+  const initial = data.username?.[0]?.toUpperCase() || '?'
+
   return (
-    <div className="xl:bg-neutral-200 xl:h-20 flex items-center xl:p-2 rounded-xl gap-1 xl:mx-5 cursor-pointer">
-      <UsersIcon className='w-6 h-6 m-4 hidden xl:block flex-shrink-0' />
-      <div className="flex xl:flex-col space-y-0.5 min-w-0">
-        <span className="text-white text-sm xl:text-black font-medium truncate">{data.username}</span>
+    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors cursor-pointer flex-shrink-0 xl:flex-shrink">
+
+      <div className={`relative w-9 h-9 xl:w-10 xl:h-10 rounded-full ${avatarColor} flex items-center justify-center flex-shrink-0 shadow-lg`}>
+        <span className="text-white font-bold text-sm">{initial}</span>
         {data.isTyping && (
-          <span className="text-xs text-emerald-600 hidden xl:block">Digitando...</span>
+          <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-slate-900" />
         )}
       </div>
-      {data.isTyping && (
-        <span className="ml-1 text-emerald-400 text-xs xl:hidden">✎</span>
-      )}
+
+      <div className="hidden xl:flex flex-col min-w-0">
+        <span className="text-white text-sm font-medium truncate">{data.username}</span>
+        <span className={`text-xs ${data.isTyping ? 'text-emerald-400' : 'text-slate-500'}`}>
+          {data.isTyping ? 'digitando...' : 'online'}
+        </span>
+      </div>
+
     </div>
   )
 }

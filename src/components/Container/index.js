@@ -1,18 +1,6 @@
 export const Container = ({ children }) => {
   return (
-    <section
-      className="
-      mx-auto
-      container
-      h-screen
-      w-screen
-      flex
-      gap-3
-      justify-between
-      flex-col
-    xl:flex-row
-      xl:py-4
-    " >
+    <section className="mx-auto container h-screen w-screen flex xl:flex-row flex-col xl:gap-4 xl:p-5 overflow-hidden">
       {children}
     </section>
   )

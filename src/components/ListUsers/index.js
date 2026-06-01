@@ -37,21 +37,33 @@ export const ListUsers = ({ socket, users, setUsers }) => {
       socket.off('isTyping')
       socket.off('noTyping')
     }
-  }, [socket])
+  }, [socket, setUsers])
 
   return (
-    <main className="fixed z-40 p-3 shadow-2xl container flex-1 bg-zinc-900 xl:bg-white xl:bg-opacity-10 xl:backdrop-blur-xl h-16 flex items-center xl:rounded-2xl xl:h-full xl:flex xl:flex-col xl:p-5 xl:relative">
+    <aside className="
+      fixed top-0 left-0 right-0 z-40 xl:static
+      xl:w-72 xl:flex-shrink-0
+      xl:h-full h-16
+      xl:rounded-2xl
+      flex xl:flex-col
+      bg-slate-900/80 backdrop-blur-xl
+      border-b xl:border border-white/10
+      shadow-2xl
+    ">
 
-      <div className="hidden xl:flex items-center justify-between pb-3 px-5 w-full">
-        <span className="text-white text-xs font-semibold uppercase tracking-widest">
-          Online
-        </span>
-        <span className="text-emerald-400 text-xs font-bold">
-          {users.length}
+      <div className="hidden xl:flex items-center gap-3 px-5 py-5 border-b border-white/10">
+        <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_2px_rgba(52,211,153,0.6)]" />
+        <span className="text-white font-bold text-base tracking-wide">Live Chat</span>
+        <span className="ml-auto bg-emerald-400/20 text-emerald-400 text-xs font-semibold px-2 py-0.5 rounded-full">
+          {users.length} online
         </span>
       </div>
 
-      <div className="truncate transition-all xl:flex-1 flex xl:flex-col gap-3 overflow-y-auto scrollbar scrollbar-thumb-emerald-400 scrollbar-track-gray-100 scrollbar-thumb-rounded-md scrollbar-track-rounded-md w-full">
+      <div className="hidden xl:block px-4 pt-3 pb-1">
+        <span className="text-slate-500 text-xs font-semibold uppercase tracking-widest">Participantes</span>
+      </div>
+
+      <div className="flex xl:flex-col gap-2 overflow-x-auto xl:overflow-y-auto xl:overflow-x-hidden px-3 xl:px-4 xl:pb-4 items-center xl:items-stretch flex-1">
         {users.map((data, id) => (
           !data.you
             ? <ListFriend key={id} data={data} />
@@ -59,6 +71,6 @@ export const ListUsers = ({ socket, users, setUsers }) => {
         ))}
       </div>
 
-    </main>
+    </aside>
   )
 }

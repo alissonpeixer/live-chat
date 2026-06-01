@@ -4,12 +4,12 @@
 
 body {
   overflow: hidden;
-  background-color: theme('colors.neutral.800');
-
-  background-image: theme('backgroundImage.grid');
+  background-color: #0f172a;
+  background-image: url('/grid.svg');
   background-size: cover;
+  background-attachment: fixed;
 }
 
-.scrol::-webkit-scrollbar {
-  width: 3px;
-}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #34d399; border-radius: 4px; }

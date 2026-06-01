@@ -1,13 +1,22 @@
-import { UserCircleIcon } from "@heroicons/react/24/outline"
+import { getAvatarColor } from "../../utils/avatarColor"
 
 export const ListUser = ({ data }) => {
+  const avatarColor = getAvatarColor(data.username)
+  const initial = data.username?.[0]?.toUpperCase() || '?'
+
   return (
-    <div className="xl:bg-neutral-300 flex items-center xl:p-2 rounded-xl gap-1 xl:border-2 border-emerald-400 xl:mx-5 cursor-pointer xl:h-20">
-      <UserCircleIcon className='w-6 h-6 m-4 hidden xl:block flex-shrink-0' />
-      <div className="flex items-center xl:flex-col xl:items-start min-w-0">
-        <span className="xl:text-base font-bold text-white xl:text-black truncate">{data.username}</span>
-        <span className="hidden xl:block text-xs text-emerald-600 font-normal">Você</span>
+    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-emerald-400/10 border border-emerald-400/20 flex-shrink-0 xl:flex-shrink">
+
+      <div className={`relative w-9 h-9 xl:w-10 xl:h-10 rounded-full ${avatarColor} flex items-center justify-center flex-shrink-0 shadow-lg ring-2 ring-emerald-400`}>
+        <span className="text-white font-bold text-sm">{initial}</span>
+        <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-slate-900" />
       </div>
+
+      <div className="hidden xl:flex flex-col min-w-0">
+        <span className="text-white text-sm font-bold truncate">{data.username}</span>
+        <span className="text-xs text-emerald-400">Você</span>
+      </div>
+
     </div>
   )
 }

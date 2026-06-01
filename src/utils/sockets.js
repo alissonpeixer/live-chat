@@ -8,7 +8,7 @@ const removeUser = (socket) => {
   return { socketId: socket.id };
 };
 
-export default (io, socket) => {
+const registerSocketHandlers = (io, socket) => {
   socket.on("sendMensage", (data) => {
     socket.emit("sendStatusCheck");
     socket.broadcast.emit("recebMensage", {
@@ -36,3 +36,5 @@ export default (io, socket) => {
     socket.broadcast.emit("noTyping", { socketId: socket.id, username });
   });
 };
+
+export default registerSocketHandlers;

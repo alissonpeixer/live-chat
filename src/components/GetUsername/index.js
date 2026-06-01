@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { ArrowRightIcon } from "@heroicons/react/24/solid"
 
 const MIN = 2
 const MAX = 13
@@ -11,8 +12,6 @@ const Username = ({ setUsername, sendUsers }) => {
   const tooShort = trimmed.length < MIN
   const canSubmit = !tooShort && !tooLong
 
-  const error = tooLong ? `Username deve ter menos de ${MAX} caracteres` : ""
-
   const handleSubmit = () => {
     if (!canSubmit) return
     setUsername(trimmed)
@@ -21,40 +20,51 @@ const Username = ({ setUsername, sendUsers }) => {
   }
 
   return (
-    <div className="w-full flex items-center h-screen flex-col justify-center p-5 lg:p-0">
-      <div className="space-y-2 text-white lg:w-2/4 text-center mb-4">
-        <h1 className="text-4xl text-white font-bold">Live Chat</h1>
-        <p className="text-neutral-400 text-sm">Chat em tempo real com Socket.IO</p>
+    <div className="w-full h-screen flex items-center justify-center p-5">
+      <div className="w-full max-w-md flex flex-col items-center gap-6">
+
+        <div className="flex flex-col items-center gap-3 text-center">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shadow-xl shadow-emerald-900/30">
+            <span className="text-3xl">💬</span>
+          </div>
+          <h1 className="text-3xl font-bold text-white">Live Chat</h1>
+          <p className="text-slate-400 text-sm">Chat em tempo real com Socket.IO</p>
+        </div>
+
+        <div className="w-full bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl flex flex-col gap-4">
+          <div className="flex flex-col gap-1.5">
+            <label className="text-slate-400 text-xs font-semibold uppercase tracking-widest">Username</label>
+            <input
+              onChange={e => setValue(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && handleSubmit()}
+              value={value}
+              type="text"
+              maxLength={MAX}
+              placeholder="Digite seu username..."
+              className="w-full bg-white/5 border border-white/10 text-white placeholder-slate-600 rounded-xl px-4 py-3.5 focus:outline-none focus:border-emerald-400/50 transition-all text-sm"
+            />
+            {tooLong && (
+              <span className="text-red-400 text-xs">Máximo de {MAX} caracteres</span>
+            )}
+          </div>
+
+          <button
+            onClick={handleSubmit}
+            disabled={!canSubmit}
+            className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-sm transition-all
+              bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg shadow-emerald-900/40
+              disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none"
+          >
+            Entrar
+            <ArrowRightIcon className="w-4 h-4" />
+          </button>
+        </div>
+
+        <p className="text-slate-600 text-xs text-center max-w-xs">
+          Nenhum dado é armazenado em banco de dados. A sessão é perdida ao fechar a aba.
+        </p>
+
       </div>
-      <input
-        onChange={e => setValue(e.target.value)}
-        onKeyDown={e => e.key === "Enter" && handleSubmit()}
-        value={value}
-        type="text"
-        maxLength={MAX}
-        placeholder="Digite seu username"
-        className="bg-zinc-100 border border-zinc-300 shadow-xl max-h-28 m-6 w-full lg:w-2/4 py-5 pl-6 pr-14 rounded-3xl focus:outline-none"
-      />
-      <button
-        onClick={handleSubmit}
-        disabled={!canSubmit}
-        className={`transition-all rounded-full font-bold w-full lg:w-2/4 z-10 flex items-center justify-center p-2
-          ${canSubmit
-            ? 'bg-emerald-400/[0.5] hover:bg-emerald-400 cursor-pointer'
-            : 'bg-zinc-600 opacity-50 cursor-not-allowed'
-          }`}
-      >
-        Entrar
-      </button>
-      <span className="h-8 flex items-center text-red-400 text-sm">{error}</span>
-      <footer className="text-white lg:w-2/4 flex flex-col space-y-6 mt-4">
-        <span className="text-neutral-300 text-sm">
-          Programação orientada a eventos com Node.js e Socket.IO.
-        </span>
-        <span className="text-neutral-500 text-sm">
-          Atenção: nenhum dado é armazenado em banco de dados.
-        </span>
-      </footer>
     </div>
   )
 }

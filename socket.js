@@ -1,14 +1,13 @@
-import { useState } from 'react'
 import io from 'socket.io-client'
 
+let socket
 
-connect()
-async function connect() {
-  await fetch('/api/socket')
-
-
+if (typeof window !== 'undefined') {
+  const connect = async () => {
+    await fetch('/api/socket')
+  }
+  connect()
+  socket = io()
 }
-
-let socket = io()
 
 export default socket

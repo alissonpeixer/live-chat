@@ -43,6 +43,7 @@ const App = () => {
             <Chat
               username={username}
               socket={socket}
+              users={users}
             />
           </>
         ) : (
